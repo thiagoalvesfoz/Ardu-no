@@ -1,3 +1,7 @@
+//	Faculdade uniamérica - Engenharia de Software | Turma 2019/2023
+//	Alunos: Thiago Alves | Felipe Menger ALves | Yuri | Matheus
+//  Sistema de verificação de alunos por biométria.
+
 // INCLUSÃO DAS BIBLIOTECAS
 #include <Adafruit_Fingerprint.h>
 #include <SoftwareSerial.h>
@@ -33,15 +37,7 @@ void setup() {
 
 void loop() {
  
-  /*if ( botao.pressed() ){ //SE O BOTÃO FOR APERTADO ENTRA NO MODO DE GRAVAÇÃO DO ADMINISTRADOR
-    gravar = true;
-  }
-
-  if(gravar){ // E SE GRAVAR ENTÃO IRÁ EXECUTAR
-    modoGravacaoID(0); //A GRAVAÇÃO DA DIGITAL DO ADMIN NA POSIÇÃO DE MEMORIA ZERO (0)
-    gravar = false; // LOGO EM SEGUIDA SAÍ DO MODO DE GRAVAÇÃO DE DIGITAL DO ADMIN
-  }*/
-
+  
   getFingerprintIDez(); //FUNÇÃO QUE VERIFICA SE EXISTE UMA DIGITAL NO SENSOR
   
 }
