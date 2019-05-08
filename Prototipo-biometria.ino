@@ -1,5 +1,5 @@
-//	Faculdade uniamérica - Engenharia de Software | Turma 2019/2023
-//	Alunos: Thiago Alves | Felipe Menger ALves | Yuri | Matheus
+//  Faculdade uniamérica - Engenharia de Software | Turma 2019/2023
+//  Alunos: Thiago Alves | Felipe Menger ALves | Yuri | Matheus
 //  Sistema de verificação de alunos por biométria.
 
 // INCLUSÃO DAS BIBLIOTECAS
