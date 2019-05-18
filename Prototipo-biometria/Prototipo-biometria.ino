@@ -1,16 +1,39 @@
 // INCLUSÃO DAS BIBLIOTECAS
 #include <Adafruit_Fingerprint.h> //biblioteca sensor biométrico
 #include <SoftwareSerial.h> //biblioteca padrão monitor serial
-#include <ESP8266WiFi.h> //biblioteca para conexão wifi
+//#include <ESP8266WiFi.h> //biblioteca para conexão wifi
+
+#include <Adafruit_SleepyDog.h> 
+#include <Adafruit_CC3000.h> 
+#include <SPI.h> 
+#include "Adafruit_MQTT.h" 
+#include "Adafruit_MQTT_CC3000.h"
+
+
+#define WLAN_SSID       "Campus Boulevard"
+#define WLAN_PASS       ""
+#define WLAN_SECURITY   WLAN_SEC_WPA2
+
+//MQTT
+#define AIO_SERVER      "io.adafruit.com"
+#define AIO_SERVERPORT  1883
+#define AIO_USERNAME    "thiago_alves"
+#define AIO_KEY         "mt@br2014"
+
+
+const char FINGERPRINT_FEED[] PROGMEM = AIO_USERNAME "/feeds/sensorbiometrico";
+Adafruit_MQTT_Publish fingerprint = Adafruit_MQTT_Publish(&mqtt, FINGERPRINT_FEED);
+
 
 // INSTANCIANDO OBJETOS
-SoftwareSerial mySerial(7, 8);
+SoftwareSerial mySerial(5, 4);
 
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
 
 // DECLARAÇÃO DAS VARIÁVEIS E FUNCOES
 uint8_t numID = 1;
 bool gravar = false;
+int fingerID = 0;
 
 uint8_t modoGravacaoID(uint8_t IDgravar);
 
@@ -19,7 +42,7 @@ void setup() {
   Serial.begin(9600);
   finger.begin(57600);
 
-  WiFi.begin("Campus Boulevard", "");
+  /*WiFi.begin("Campus Boulevard", "");
   
   Serial.println();
   Serial.println("Preparando o ambiente de trabalho, tome um café enquanto isso...");
@@ -32,7 +55,7 @@ void setup() {
   Serial.println();
 
   Serial.print("Conectado! Endereço IP: ");
-  Serial.println(WiFi.localIP());
+  Serial.println(WiFi.localIP());*/
 
   
   if (finger.verifyPassword()) { //RETORNA VERDADEIRO OU FALSO SE O SENSOR FOI ENCONTRADO OU NÃO
@@ -49,6 +72,8 @@ void setup() {
 }
 
 void loop() {
+  
+    MQTT_connect ();
 
   /*if ( botao.pressed() ){ //SE O BOTÃO FOR APERTADO ENTRA NO MODO DE GRAVAÇÃO DO ADMINISTRADOR
     gravar = true;
